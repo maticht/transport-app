@@ -31,34 +31,30 @@ const OrderForm = ({ from = '', to = '', selectedTariff = '' }: Props) => {
     const [currentTariff, setCurrentTariff] = useState<string>(selectedTariff);
     const [departureLocation, setDepartureLocation] = useState<Location | null>(null);
     const [destinationLocation, setDestinationLocation] = useState<Location | null>(null);
-    const [additionalInfo, setAdditionalInfo] = useState<string>(''); // Поле для дополнительной информации
-    const [selectedServices, setSelectedServices] = useState<string[]>([]); // Дополнительные услуги
+    const [additionalInfo, setAdditionalInfo] = useState<string>('');
+    const [selectedServices, setSelectedServices] = useState<string[]>([]);
     const [date, setDate] = useState<string>(''); // Дата
-    const [servicesDropdownOpen, setServicesDropdownOpen] = useState<boolean>(false); // Управление состоянием выпадающего списка услуг
+    const [servicesDropdownOpen, setServicesDropdownOpen] = useState<boolean>(false);
 
-    // Загружаем тарифы из JSON файла
     const [tariffs, setTariffs] = useState<{ name: string; price_per_km: string }[]>([]);
 
     useEffect(() => {
         setTariffs(tariffsData.tariffs);
     }, []);
 
-    // Обработчик выбора местоположения для отправления
     const handleSelectDeparture = (address: string) => {
         setDeparture(address);
     };
 
-    // Обработчик выбора местоположения для назначения
     const handleSelectDestination = (address: string) => {
         setDestination(address);
     };
 
-    // Обработчик выбора дополнительных услуг
     const handleServiceSelect = (service: string) => {
         setSelectedServices((prev) =>
             prev.includes(service)
-                ? prev.filter((item) => item !== service) // Удалить услугу, если она уже выбрана
-                : [...prev, service] // Добавить услугу, если она не выбрана
+                ? prev.filter((item) => item !== service)
+                : [...prev, service]
         );
     };
 
@@ -163,7 +159,7 @@ const OrderForm = ({ from = '', to = '', selectedTariff = '' }: Props) => {
 
                 <div className={styles.mapContainer}>
                     <MapContainer
-                        center={[53.9, 27.56]} // Центр карты Минска
+                        center={[53.9, 27.56]}
                         zoom={12}
                         style={{ height: '400px', width: '100%' }}
                     >
